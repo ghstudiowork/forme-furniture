@@ -1,0 +1,425 @@
+/* /login — a functional page inside the FORME frame: the header and footer
+   carry the brand, the middle stays calm. One centred 980px container (its
+   left edge lines up with the navbar group), a plain page title, then two
+   fixed 400px forms. Spacing is explicit px so both submit buttons land on
+   the same line:
+     member: field 78 + 22 + field 78 + 14 + checkbox 20 + 30  = 242
+     guest:  field 78 + 22 + lookup 110          + 32          = 242 */
+
+.page {
+  --rule: rgba(20, 20, 18, 0.1);
+  --field-border: #ddd6c9;
+  --field-bg: #faf8f2;
+  --charcoal: rgb(46, 43, 39);
+  --ease: 0.2s ease;
+
+  min-height: 100vh;
+  background: #f3efe6;
+  color: var(--color-ink);
+  padding: 104px 0 144px;
+  font-family: var(--font-korean);
+}
+
+.container {
+  width: calc(100% - 8.34vw);
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* Breadcrumb — small and quiet, on the container's left edge */
+.breadcrumb ol {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.breadcrumb li + li::before {
+  content: "/";
+  margin-right: 10px;
+  opacity: 0.6;
+}
+
+.breadcrumb a {
+  transition: color var(--ease);
+}
+
+.breadcrumb [aria-current="page"] {
+  color: var(--color-ink);
+}
+
+/* Page title — one plain Korean heading */
+.title {
+  margin: 72px 0 64px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+/* Two fixed-width forms; the hairline belongs to the guest column, so it
+   runs only as tall as that form rather than through the whole area */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 400px);
+  justify-content: center;
+  align-items: start;
+  column-gap: 180px;
+}
+
+.column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.guest::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -90px;
+  width: 1px;
+  background: var(--rule);
+}
+
+.columnTitle {
+  margin: 0 0 34px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.field + .field {
+  margin-top: 22px;
+}
+
+.label {
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+/* A legend sits outside the fieldset's flex flow, so it needs its own gap */
+legend.label {
+  margin-bottom: 10px;
+}
+
+/* Inputs — square, a shade lighter than the page, warm-grey hairline that
+   only darkens on focus */
+.input {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  border: 1px solid var(--field-border);
+  border-radius: 0;
+  background: var(--field-bg);
+  font: inherit;
+  font-size: 14px;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color var(--ease);
+  appearance: none;
+}
+
+.input::placeholder {
+  color: #a19c93;
+}
+
+.input:focus {
+  border-color: var(--charcoal);
+}
+
+/* Checkbox and radios */
+.check,
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.check {
+  align-self: flex-start;
+  margin-top: 14px;
+}
+
+.checkbox,
+.radioInput {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border: 1px solid #c9c1b3;
+  background: var(--field-bg);
+  appearance: none;
+  cursor: pointer;
+  transition:
+    border-color var(--ease),
+    background-color var(--ease);
+}
+
+.checkbox:checked {
+  border-color: var(--charcoal);
+  background: var(--charcoal)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23f5f2ea' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 8.5 2.5 2.5L12 5.5'/%3E%3C/svg%3E")
+    center / 14px no-repeat;
+}
+
+.radioInput {
+  border-radius: 50%;
+}
+
+.radioInput:checked {
+  border-color: var(--charcoal);
+  box-shadow: inset 0 0 0 4px var(--field-bg);
+  background: var(--charcoal);
+}
+
+.checkbox:focus-visible,
+.radioInput:focus-visible {
+  outline: 1px solid var(--charcoal);
+  outline-offset: 3px;
+}
+
+.radios {
+  display: flex;
+  gap: 32px;
+  height: 20px;
+  margin-bottom: 2px;
+}
+
+/* Primary button — charcoal, square, form width */
+.primary {
+  width: 100%;
+  height: 54px;
+  margin-top: 30px;
+  border: 0;
+  border-radius: 0;
+  background: var(--charcoal);
+  color: #f5f2ea;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color var(--ease);
+}
+
+.guest .primary {
+  margin-top: 32px;
+}
+
+.primary:focus-visible {
+  outline: 1px solid var(--charcoal);
+  outline-offset: 3px;
+}
+
+.notice {
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+}
+
+.notice:empty {
+  display: none;
+}
+
+/* Guest help — one note, under the button where the member side has its
+   account links */
+.help {
+  margin: 28px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+  word-break: keep-all;
+}
+
+/* Find email | find password | sign up */
+.utilities {
+  display: flex;
+  justify-content: center;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utilities li + li::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 11px;
+  margin: 0 18px;
+  background: var(--field-border);
+  vertical-align: middle;
+}
+
+.utility {
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  transition: color var(--ease);
+}
+
+/* Simple login — a secondary row of small marks */
+.social {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.socialLabel {
+  margin: 0 0 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+}
+
+.socialButtons {
+  display: flex;
+  gap: 16px;
+}
+
+.socialButton {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--field-border);
+  border-radius: 50%;
+  background: var(--field-bg);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: border-color var(--ease);
+}
+
+.utility:focus-visible,
+.socialButton:focus-visible,
+.breadcrumb a:focus-visible {
+  outline: 1px solid var(--charcoal);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .primary:hover {
+    background: var(--color-dark);
+  }
+
+  .utility:hover,
+  .breadcrumb a:hover {
+    color: var(--color-ink);
+  }
+
+  .socialButton:hover {
+    border-color: var(--charcoal);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input,
+  .checkbox,
+  .radioInput,
+  .primary,
+  .utility,
+  .socialButton,
+  .breadcrumb a {
+    transition: none;
+  }
+}
+
+/* Tablet — the forms share the width instead of staying at 400px */
+@media (max-width: 1024px) {
+  .page {
+    padding: 96px 0 120px;
+  }
+
+  .container {
+    width: calc(100% - 64px);
+  }
+
+  .title {
+    margin: 56px 0 48px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 400px));
+    column-gap: 96px;
+  }
+
+  .guest::before {
+    left: -48px;
+  }
+}
+
+/* Mobile — one column: member login, then guest lookup under a hairline */
+@media (max-width: 640px) {
+  .page {
+    min-height: 0;
+    padding: 120px 0 96px;
+  }
+
+  .container {
+    width: calc(100% - 32px);
+  }
+
+  .title {
+    margin: 40px 0 36px;
+    font-size: 24px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .guest {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .guest::before {
+    content: none;
+  }
+
+  .utilities li + li::before {
+    margin: 0 12px;
+  }
+}

@@ -1,0 +1,228 @@
+/* Desktop layout is measured against a 1440px-wide canvas:
+   1 design px ≈ 0.0694vw. Mobile is not handled yet.
+
+   Each spread is a single-row 12-column grid: every item sits in row 1 and
+   its margin-top sets its vertical offset, so images can stagger freely
+   without the rows of one column pushing the other column around. */
+
+.collection {
+  position: relative;
+  background: #f3efe6;
+  color: var(--color-ink);
+  padding: 6.94vw 4.17vw 5.56vw;
+}
+
+.spread {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.67vw;
+  align-items: start;
+}
+
+.spread > * {
+  grid-row: 1;
+}
+
+.spread02 {
+  margin-top: 6.25vw;
+}
+
+/* Header — opens spread 01 rather than standing alone above it */
+.intro {
+  grid-column: 1 / 9;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 1.67vw;
+  font-family: var(--font-korean);
+  font-size: 0.83vw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.heading {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-korean);
+  font-size: 9.72vw;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Items — image plate + caption, no card chrome */
+.imageFrame {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: #e7e1d4;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.meta {
+  margin: 0.97vw 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28vw;
+  font-family: var(--font-korean);
+  font-size: 0.72vw;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.meta span:first-child {
+  color: var(--color-ink);
+}
+
+/* Interactive object — the whole plate + caption opens the detail layer.
+   "View object" hangs below the caption (absolutely positioned) so it never
+   changes the height of an item or the composition around it. */
+.trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.trigger:focus-visible {
+  outline: 1px solid var(--color-ink);
+  outline-offset: 6px;
+}
+
+.trigger .meta {
+  position: relative;
+}
+
+.view {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.56vw;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.image {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover-capable devices: reveal on hover / keyboard focus.
+   Touch devices keep "View object" visible at all times. */
+@media (hover: hover) and (pointer: fine) {
+  .view {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+      opacity 0.45s ease-out,
+      transform 0.45s ease-out;
+  }
+
+  .trigger:hover .view,
+  .trigger:focus-visible .view {
+    opacity: 1;
+    transform: none;
+  }
+
+  .trigger:hover .image {
+    transform: scale(1.025);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image,
+  .view {
+    transition: none;
+  }
+}
+
+/* Spread 01 — BIG (01) left, SMALL (02) top right, MEDIUM (03) bottom right */
+
+/* Wide landscape crop on the chair itself — the intro board shows the same
+   photo as a tall preview, so here it reads as the hero product shot */
+.item01 {
+  grid-column: 1 / 8;
+  margin-top: 22.92vw;
+}
+
+.item01 .imageFrame {
+  aspect-ratio: 3 / 2;
+}
+
+.item01 .image {
+  object-position: 50% 72%;
+}
+
+.item02 {
+  grid-column: 10 / 13;
+}
+
+.item02 .imageFrame {
+  aspect-ratio: 4 / 5; /* native ratio, uncropped */
+}
+
+.item03 {
+  grid-column: 9 / 13;
+  margin-top: 33.33vw;
+}
+
+.item03 .imageFrame {
+  aspect-ratio: 4 / 5;
+}
+
+.item03 .image {
+  object-position: 50% 40%;
+}
+
+/* Spread 02 — MEDIUM (04) left, BIG (05) right, SMALL (06) alone low-left */
+
+.item04 {
+  grid-column: 1 / 4;
+}
+
+.item04 .imageFrame {
+  aspect-ratio: 2 / 3; /* native ratio, uncropped */
+}
+
+.item05 {
+  grid-column: 6 / 13;
+  margin-top: 6.94vw;
+}
+
+.item05 .imageFrame {
+  aspect-ratio: 5 / 4;
+}
+
+.item05 .image {
+  object-position: 50% 85%;
+}
+
+.item06 {
+  grid-column: 3 / 5;
+  margin-top: 39.58vw;
+}
+
+.item06 .imageFrame {
+  aspect-ratio: 4 / 5;
+}
+
+.item06 .image {
+  object-position: 50% 55%;
+}

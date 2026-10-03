@@ -1,0 +1,324 @@
+/* /objects — product index. Same ivory, type and hairlines as the home
+   shop grid; every frame is the same 4:5 plate so the page reads as a
+   catalogue to browse, not an editorial spread.
+   Desktop is measured against a 1440px canvas (1 design px ≈ 0.0694vw);
+   tablet and mobile switch to px. */
+
+.page {
+  --rule: rgba(20, 20, 18, 0.15);
+
+  min-height: 100vh;
+  background: #f3efe6;
+  color: var(--color-ink);
+  padding: 8.89vw 4.17vw 6.67vw;
+}
+
+/* Intro — eyebrow + title left, lede right */
+.head {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.67vw;
+  row-gap: 1.67vw;
+  align-items: end;
+  padding-bottom: 2.5vw;
+}
+
+.eyebrow {
+  grid-column: 1 / 7;
+  grid-row: 1;
+  margin: 0;
+  font-family: var(--font-korean);
+  font-size: 0.69vw;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.heading {
+  grid-column: 1 / 9;
+  grid-row: 2;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-korean);
+  font-size: 5.14vw;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.lede {
+  grid-column: 10 / 13;
+  grid-row: 2;
+  margin: 0;
+  font-family: var(--font-korean);
+  font-size: 0.83vw;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--color-ink-soft);
+  word-break: keep-all;
+}
+
+/* Category filter — one ruled row of Korean labels; tracked tighter than
+   the uppercase eyebrows, since hangul doesn't need caps spacing */
+.filters {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.filterList {
+  display: flex;
+  gap: 2.78vw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.filter {
+  display: inline-block;
+  padding: 1.25vw 0;
+  font-family: var(--font-korean);
+  font-size: 0.83vw;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-ink-soft);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.5em;
+  transition:
+    color 0.3s ease-out,
+    text-decoration-color 0.3s ease-out;
+}
+
+.filter[aria-current="page"] {
+  color: var(--color-ink);
+  text-decoration-color: currentColor;
+}
+
+.filter:focus-visible,
+.card:focus-visible {
+  outline: 1px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+/* Grid — three equal columns, identical frames, no card chrome */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 1.67vw;
+  row-gap: 4.44vw;
+  margin: 0;
+  padding: 3.33vw 0 0;
+  list-style: none;
+}
+
+.item {
+  min-width: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.index {
+  margin-bottom: 0.83vw;
+  font-family: var(--font-korean);
+  font-size: 0.69vw;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.2em;
+  color: var(--color-ink-soft);
+}
+
+.frame {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: #e7e1d4;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.caption {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.11vw;
+  margin-top: 1.11vw;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35vw;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-korean);
+  font-size: 1.11vw;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color 0.3s ease-out;
+}
+
+.material {
+  font-family: var(--font-korean);
+  font-size: 0.69vw;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.arrow {
+  flex: none;
+  display: inline-block;
+  font-size: 1.11vw;
+  line-height: 1;
+  transition: transform 0.4s ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .filter:hover {
+    color: var(--color-ink);
+  }
+
+  .card:hover .image {
+    transform: scale(1.025);
+  }
+
+  .card:hover .name {
+    text-decoration-color: currentColor;
+  }
+
+  .card:hover .arrow {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filter,
+  .image,
+  .name,
+  .arrow {
+    transition: none;
+  }
+}
+
+/* Tablet — two columns */
+@media (max-width: 1024px) {
+  .page {
+    padding: 120px 32px 80px;
+  }
+
+  .head {
+    column-gap: 16px;
+    row-gap: 20px;
+    padding-bottom: 32px;
+  }
+
+  .eyebrow,
+  .index,
+  .material {
+    font-size: 11px;
+  }
+
+  .heading {
+    font-size: clamp(2.5rem, 7vw, 4.25rem);
+  }
+
+  .lede {
+    grid-column: 9 / 13;
+    font-size: 13px;
+  }
+
+  .filterList {
+    gap: 28px;
+  }
+
+  .filter {
+    padding: 16px 0;
+    font-size: 13px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: 56px;
+    padding-top: 40px;
+  }
+
+  .index {
+    margin-bottom: 12px;
+  }
+
+  .caption {
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .text {
+    gap: 6px;
+  }
+
+  .name {
+    font-size: 18px;
+  }
+
+  .arrow {
+    font-size: 16px;
+  }
+}
+
+/* Mobile — one column; on the narrowest phones the filter row wraps
+   instead of becoming its own scroll area */
+@media (max-width: 640px) {
+  .page {
+    padding: 104px 16px 64px;
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding-bottom: 28px;
+  }
+
+  .heading {
+    font-size: clamp(2.5rem, 12vw, 3.5rem);
+  }
+
+  .filterList {
+    flex-wrap: wrap;
+    column-gap: 24px;
+    row-gap: 0;
+  }
+
+  .filter {
+    padding: 14px 0;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 48px;
+    padding-top: 32px;
+  }
+}

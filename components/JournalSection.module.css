@@ -1,0 +1,253 @@
+/* JOURNAL — latest articles as three identical cards on an even grid.
+   Desktop is measured against a 1440px canvas (1 design px ≈ 0.0694vw);
+   tablet and mobile switch to px. */
+
+.section {
+  --rule: rgba(20, 20, 18, 0.15);
+
+  background: #f3efe6;
+  color: var(--color-ink);
+  padding: 2.78vw 4.17vw 6.94vw;
+}
+
+/* Header — eyebrow + title left, "all articles" link right */
+.head {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.67vw;
+  row-gap: 1.39vw;
+  align-items: end;
+  padding-bottom: 2.5vw;
+  margin-bottom: 2.5vw;
+  border-bottom: 1px solid var(--rule);
+}
+
+.eyebrow {
+  grid-column: 1 / 7;
+  grid-row: 1;
+  margin: 0;
+  font-family: var(--font-korean);
+  font-size: 0.69vw;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.heading {
+  grid-column: 1 / 9;
+  grid-row: 2;
+  margin: 0;
+  font-family: var(--font-korean);
+  font-size: 3.61vw;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  word-break: keep-all;
+}
+
+.all {
+  grid-column: 10 / 13;
+  grid-row: 2;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.56vw;
+  padding-bottom: 0.28vw;
+  border-bottom: 1px solid currentColor;
+  font-family: var(--font-korean);
+  font-size: 0.9vw;
+  font-weight: 500;
+}
+
+.all:focus-visible,
+.link:focus-visible {
+  outline: 1px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+/* Cards — equal columns, identical 4:3 frames */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 1.67vw;
+  row-gap: 3.33vw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  min-width: 0;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  cursor: pointer;
+}
+
+.frame {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: #e7e1d4;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.index {
+  margin-top: 1.39vw;
+  font-family: var(--font-korean);
+  font-size: 0.69vw;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.2em;
+  color: var(--color-ink-soft);
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.11vw;
+  margin-top: 0.56vw;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-korean);
+  font-size: 1.39vw;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+.summary {
+  margin: 0.56vw 0 0;
+  font-family: var(--font-korean);
+  font-size: 0.83vw;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+  word-break: keep-all;
+}
+
+.arrow {
+  display: inline-block;
+  flex: none;
+  font-size: 1vw;
+  line-height: 1;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover .image {
+    transform: scale(1.025);
+  }
+
+  .link:hover .arrow,
+  .all:hover .arrow {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image,
+  .arrow {
+    transition: none;
+  }
+}
+
+/* Tablet — still three columns so no card is left alone on a row */
+@media (max-width: 1024px) {
+  .section {
+    padding: 32px 32px 96px;
+  }
+
+  .head {
+    column-gap: 16px;
+    row-gap: 16px;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+  }
+
+  .eyebrow,
+  .index {
+    font-size: 11px;
+  }
+
+  .heading {
+    font-size: clamp(2rem, 5.2vw, 2.75rem);
+  }
+
+  .all {
+    gap: 8px;
+    padding-bottom: 4px;
+    font-size: 14px;
+  }
+
+  .grid {
+    column-gap: 20px;
+    row-gap: 48px;
+  }
+
+  .index {
+    margin-top: 18px;
+  }
+
+  .titleRow {
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .summary {
+    margin-top: 6px;
+    font-size: 13px;
+  }
+
+  .arrow {
+    font-size: 15px;
+  }
+}
+
+/* Mobile — one column */
+@media (max-width: 640px) {
+  .section {
+    padding: 24px 16px 80px;
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 28px;
+  }
+
+  .heading {
+    font-size: clamp(1.75rem, 8.5vw, 2.25rem);
+  }
+
+  .all {
+    min-height: 44px;
+    align-items: flex-end;
+    padding-bottom: 6px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 40px;
+  }
+}

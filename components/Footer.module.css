@@ -1,0 +1,407 @@
+/* Footer — functional two-column close on the dark ground.
+   Left: logo + tagline on top, the email address (largest type in the
+   footer) and inquiry link at the bottom. Right: brand message + Instagram,
+   then the navigation panel. A single base row closes the page.
+   Desktop is measured against a 1440px canvas (1 design px ≈ 0.0694vw). */
+
+.footer {
+  --paper: rgba(245, 242, 234, 0.9);
+  --paper-soft: rgba(245, 242, 234, 0.55);
+  --rule: rgba(255, 255, 255, 0.12);
+
+  background: var(--color-dark);
+  color: var(--paper);
+  padding: 5vw 4.17vw 0;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 1.67vw;
+  align-items: stretch;
+  padding-bottom: 5vw;
+}
+
+/* Left column — brand on top, contact anchored to the bottom */
+.left {
+  grid-column: 1 / 7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4.44vw;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.83vw;
+}
+
+.logo {
+  align-self: flex-start;
+  font-family: var(--font-korean);
+  font-size: 1.39vw;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--paper);
+}
+
+.tagline,
+.label,
+.social,
+.small {
+  margin: 0;
+  font-family: var(--font-korean);
+  font-size: 0.69vw;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.tagline {
+  display: flex;
+  flex-direction: column;
+  color: var(--paper-soft);
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.39vw;
+}
+
+/* The email is the footer's headline */
+.email {
+  position: relative;
+  font-family: var(--font-korean);
+  font-size: 3.89vw;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: var(--paper);
+}
+
+.inquiry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.56vw;
+  font-family: var(--font-korean);
+  font-size: 1.04vw;
+  font-weight: 500;
+  color: var(--paper-soft);
+  transition: color 0.3s ease-out;
+}
+
+/* Right column — message + Instagram, then the navigation panel */
+.right {
+  grid-column: 8 / 13;
+  display: flex;
+  flex-direction: column;
+  gap: 2.78vw;
+}
+
+.intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.67vw;
+}
+
+.message {
+  margin: 0;
+  font-family: var(--font-korean);
+  font-size: 0.9vw;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--paper-soft);
+  word-break: keep-all;
+}
+
+.social {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42vw;
+  color: var(--paper);
+}
+
+/* Panel — set apart by a hairline and a barely lighter ground, no radius */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.67vw;
+  padding: 2.22vw;
+  border: 1px solid var(--rule);
+  background: rgba(245, 242, 234, 0.03);
+}
+
+.label {
+  color: var(--paper-soft);
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.67vw;
+  row-gap: 0.97vw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navLink {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.21vw;
+  font-family: var(--font-korean);
+  font-size: 1.25vw;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--paper);
+}
+
+/* Underline drawn left → right on hover (nav + email) */
+.navLink::after,
+.email::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s ease-out;
+}
+
+/* Base row */
+.base {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.67vw 0;
+  border-top: 1px solid var(--rule);
+}
+
+.small {
+  color: var(--paper-soft);
+  letter-spacing: 0.16em;
+}
+
+.top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42vw;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: color 0.3s ease-out;
+}
+
+.inquiryArrow,
+.socialArrow,
+.topArrow {
+  display: inline-block;
+  line-height: 1;
+  letter-spacing: 0;
+  transition: transform 0.3s ease-out;
+}
+
+.socialArrow {
+  font-size: 0.83vw;
+}
+
+.logo:focus-visible,
+.email:focus-visible,
+.inquiry:focus-visible,
+.navLink:focus-visible,
+.top:focus-visible {
+  outline: 1px solid var(--paper);
+  outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navLink:hover::after,
+  .email:hover::after {
+    transform: scaleX(1);
+  }
+
+  .inquiry:hover,
+  .top:hover {
+    color: var(--paper);
+  }
+
+  .inquiry:hover .inquiryArrow {
+    transform: translateX(5px);
+  }
+
+  .social:hover .socialArrow {
+    transform: translate(4px, -4px);
+  }
+
+  .top:hover .topArrow {
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navLink::after,
+  .email::after,
+  .inquiry,
+  .top,
+  .inquiryArrow,
+  .socialArrow,
+  .topArrow {
+    transition: none;
+  }
+}
+
+/* Tablet — same two columns, px sizes */
+@media (max-width: 1024px) {
+  .footer {
+    padding: 64px 32px 0;
+  }
+
+  .main {
+    column-gap: 16px;
+    padding-bottom: 56px;
+  }
+
+  .left {
+    grid-column: 1 / 7;
+    gap: 48px;
+  }
+
+  .right {
+    grid-column: 7 / 13;
+    gap: 28px;
+  }
+
+  .brand {
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .tagline,
+  .label,
+  .social,
+  .small {
+    font-size: 11px;
+  }
+
+  .email {
+    font-size: clamp(1.75rem, 4.4vw, 2.5rem);
+  }
+
+  .contact {
+    gap: 16px;
+  }
+
+  .inquiry {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .intro {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .message {
+    font-size: 13px;
+  }
+
+  .social {
+    gap: 6px;
+  }
+
+  .socialArrow {
+    font-size: 12px;
+  }
+
+  .panel {
+    gap: 18px;
+    padding: 24px;
+  }
+
+  .nav {
+    column-gap: 16px;
+    row-gap: 12px;
+  }
+
+  .navLink {
+    padding-bottom: 3px;
+    font-size: 16px;
+  }
+
+  .base {
+    padding: 20px 0;
+  }
+
+  .top {
+    gap: 6px;
+  }
+}
+
+/* Mobile — one column: brand, contact, message + Instagram, panel */
+@media (max-width: 640px) {
+  .footer {
+    padding: 56px 16px 0;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-bottom: 40px;
+  }
+
+  .left {
+    gap: 40px;
+  }
+
+  .email {
+    font-size: clamp(1.75rem, 9vw, 2.25rem);
+  }
+
+  .inquiry {
+    min-height: 44px;
+  }
+
+  .right {
+    gap: 24px;
+  }
+
+  .social {
+    min-height: 44px;
+  }
+
+  .panel {
+    padding: 20px;
+    gap: 12px;
+  }
+
+  .nav {
+    row-gap: 0;
+  }
+
+  .navLink {
+    padding: 10px 0 4px;
+  }
+
+  .top {
+    min-height: 44px;
+  }
+
+  .base {
+    padding: 8px 0;
+  }
+}

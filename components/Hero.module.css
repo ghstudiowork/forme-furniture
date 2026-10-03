@@ -1,0 +1,297 @@
+/* Desktop layout is measured against the 1001px-wide LIVINOR reference:
+   1 reference px ≈ 0.1vw. Top elements hang from the top edge, bottom
+   elements sit on the bottom edge. */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+  background: var(--color-dark);
+}
+
+.imageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.image {
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(28, 25, 22, 0.5) 0%,
+    rgba(28, 25, 22, 0.32) 45%,
+    rgba(28, 25, 22, 0.38) 100%
+  );
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  color: #fff;
+}
+
+/* Shared "+" terminals on the thin vertical rules */
+.decoRule,
+.leftRule {
+  position: absolute;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.decoRule::before,
+.decoRule::after,
+.leftRule::before,
+.leftRule::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 0.56vw;
+  height: 0.56vw;
+  transform: translate(-50%, -50%);
+  background:
+    linear-gradient(#fff, #fff) center / 100% 1px no-repeat,
+    linear-gradient(#fff, #fff) center / 1px 100% no-repeat;
+}
+
+.decoRule::before,
+.leftRule::before {
+  top: 0;
+}
+
+.decoRule::after,
+.leftRule::after {
+  top: 100%;
+}
+
+/* Headline — two-line block spanning the top-left to centre, anchored at
+   the left; both lines share the same right edge */
+.headline {
+  position: absolute;
+  top: 9vw;
+  left: 5.5vw;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  font-family: var(--font-korean);
+  font-size: 6.6vw;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* Top-right decorative layer — rule + ring mark faded right down so they
+   read as a watermark above the preview; the small list under the mark is
+   a touch stronger but still clearly secondary. Opacity is set per element
+   (not on .deco) so the list isn't multiplied down with the graphics. */
+.deco {
+  position: absolute;
+  top: 9.5vw;
+  left: 79.1vw;
+  width: 13.24vw;
+  height: 16.13vw;
+  pointer-events: none;
+}
+
+.decoRule {
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #fff;
+  opacity: 0.22;
+}
+
+.decoMark {
+  position: absolute;
+  top: 2.48vw;
+  left: 2.65vw;
+  width: 8.69vw;
+  height: 5.38vw;
+  border: 0.38vw solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  opacity: 0.22;
+}
+
+.decoMark span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.98vw;
+  height: 1.98vw;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.decoList {
+  position: absolute;
+  top: 10.9vw;
+  left: 2.65vw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-korean);
+  font-size: 0.86vw;
+  font-weight: 400;
+  line-height: 1.75vw;
+  letter-spacing: 0.01em;
+  color: #fff;
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.decoList span {
+  display: inline-block;
+  width: 1.9vw;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+
+/* Bottom-left block */
+.bottomLeft {
+  position: absolute;
+  left: 2vw;
+  bottom: 1vw;
+  width: 16.54vw;
+  height: 16.3vw;
+}
+
+.leftRule {
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.description {
+  position: absolute;
+  top: 0.75vw;
+  left: 1.24vw;
+  margin: 0;
+  font-family: var(--font-korean);
+  font-size: 1.24vw;
+  font-weight: 700;
+  line-height: 1.86vw;
+  letter-spacing: -0.01em;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.cta {
+  position: absolute;
+  left: 1.24vw;
+  bottom: 0.83vw;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 8.37vw;
+  height: 2.9vw;
+  border-radius: 999px;
+  background: #c8a85a;
+  color: #1a1a1a;
+  font-family: var(--font-korean);
+  font-size: 0.91vw;
+  font-weight: 600;
+  transition: transform 0.25s ease;
+}
+
+.cta:hover {
+  transform: translateX(3px);
+}
+
+/* Bottom-right preview — hairline white frame flush to the right and bottom edges */
+.previewGroup {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  gap: 0.16vw;
+  width: 33.9vw;
+  height: 18.8vw;
+  padding: 0.16vw 0.16vw 0 0.16vw;
+  /* Frame is the padding showing this background: the top hairline is
+     softened so it doesn't cut the gallery off from the hero above it */
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55))
+      0 0 / 100% 0.16vw no-repeat,
+    linear-gradient(#fff, #fff) 0 0.16vw / 100% calc(100% - 0.16vw) no-repeat;
+  box-sizing: border-box;
+}
+
+/* Editorial caption sitting just above the frame, flush with its left edge */
+.previewLabel {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin: 0 0 0.62vw;
+  font-family: var(--font-korean);
+  font-size: 0.66vw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+  white-space: nowrap;
+}
+
+/* Horizontal marquee: the track holds the image list twice and slides
+   left -> right by exactly one copy (-50% -> 0), so the loop has no seam.
+   Each item carries its own trailing divider (margin) instead of a flex
+   gap, which keeps both halves of the track exactly equal in width. */
+.previewViewport {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.previewTrack {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: previewMarquee 48s linear infinite;
+  will-change: transform;
+}
+
+.previewItem {
+  position: relative;
+  flex: 0 0 auto;
+  width: 16.1vw;
+  height: 100%;
+  margin-right: 0.16vw;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.previewImage {
+  object-fit: cover;
+}
+
+@keyframes previewMarquee {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .previewTrack {
+    animation: none;
+  }
+}

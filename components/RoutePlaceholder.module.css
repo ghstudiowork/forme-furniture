@@ -1,0 +1,44 @@
+/* Temporary route body — clears the absolute header, uses the site's
+   existing eyebrow / heading type. Replaced when each page is designed. */
+
+.page {
+  min-height: 100vh;
+  padding: 8.89vw 4.17vw 6.67vw;
+  background: #f3efe6;
+  color: var(--color-ink);
+}
+
+.eyebrow {
+  margin: 0 0 1.67vw;
+  font-family: var(--font-korean);
+  font-size: 0.69vw;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-korean);
+  font-size: 5.14vw;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  .page {
+    padding: 120px 32px 80px;
+  }
+
+  .eyebrow {
+    margin-bottom: 20px;
+    font-size: 11px;
+  }
+
+  .title {
+    font-size: clamp(2.5rem, 7vw, 4.25rem);
+  }
+}
