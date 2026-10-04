@@ -365,64 +365,221 @@
   }
 }
 
-/* Mobile — brand, categories and utilities on the first row, the search
-   field full width beneath */
+/* Menu button + menu exist for mobile only */
+.menuButton,
+.menu {
+  display: none;
+}
+
+/* Mobile — one quiet row: brand left, bag + menu button right. Categories,
+   search and the account links live in the full-screen menu. */
 @media (max-width: 640px) {
   .header {
-    height: 96px;
+    height: 60px;
   }
 
   .inner {
-    width: calc(100% - 32px);
-    flex-wrap: wrap;
+    width: calc(100% - 40px);
     justify-content: space-between;
-    align-content: flex-start;
-    row-gap: 0;
-    column-gap: 8px;
-  }
-
-  .primary,
-  .utilities {
-    height: 48px;
-  }
-
-  .primary {
     gap: 16px;
   }
 
   .logo {
-    font-size: 18px;
+    font-size: 20px;
   }
 
-  .nav {
-    gap: 12px;
-  }
-
-  .navLink {
-    font-size: 13px;
-  }
-
-  .search {
-    order: 1;
-    flex: 1 0 100%;
-  }
-
-  .searchInput,
-  .searchButton {
-    height: 36px;
+  .nav,
+  .inner > .search,
+  .wideOnly {
+    display: none;
   }
 
   .utilities {
     gap: 0;
+    margin-right: -10px;
   }
 
-  .utility {
-    width: 32px;
+  .utility,
+  .menuButton {
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+    padding: 0;
   }
 
   .utilityIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .menuButton {
+    display: grid;
+    place-items: center;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  /* Two hairlines, the same weight as the line icons */
+  .menuBars {
+    display: block;
+    width: 22px;
+    height: 9px;
+    border-top: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+  }
+
+  .menuButton:focus-visible,
+  .menuClose:focus-visible {
+    outline: 1px solid var(--paper);
+    outline-offset: -4px;
+  }
+
+  /* Full-screen sheet on the header's dark ground */
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    background: #2e2b27;
+    color: var(--paper);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    animation: fadeIn 0.3s ease both;
+  }
+
+  .menuTop {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 0 10px 0 20px;
+    border-bottom: 1px solid rgba(245, 242, 234, 0.12);
+  }
+
+  .menuClose {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .menuCloseMark::before,
+  .menuCloseMark::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 1.5px;
+    background: currentColor;
+  }
+
+  .menuCloseMark::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .menuCloseMark::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .menuBody {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 20px 40px;
+  }
+
+  .menuBody .search {
+    flex: none;
+  }
+
+  .searchInput {
+    height: 48px;
+    font-size: 16px; /* 16px keeps iOS from zooming on focus */
+  }
+
+  .searchButton {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Categories — the menu's headline type */
+  .menuNav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+  }
+
+  .menuLink {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(245, 242, 234, 0.12);
+    font-family: var(--font-korean);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .menuArrow {
+    font-size: 18px;
+    font-weight: 400;
+    opacity: 0.6;
+  }
+
+  .menuLink[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+
+  /* Account links — quieter icon rows */
+  .menuUtilities {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+  }
+
+  .menuUtility {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 48px;
+    font-family: var(--font-korean);
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(245, 242, 234, 0.8);
+  }
+
+  .menuUtility[aria-current="page"] {
+    color: var(--paper);
+    text-decoration: underline;
+    text-underline-offset: 0.35em;
+  }
+
+  .menuUtilityIcon {
+    flex: none;
     width: 20px;
     height: 20px;
+  }
+
+  .menuLink:focus-visible,
+  .menuUtility:focus-visible {
+    outline: 1px solid var(--paper);
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  .menu {
+    animation: none;
   }
 }
 

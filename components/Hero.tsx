@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import styles from "./Hero.module.css";
 
 const PREVIEW_IMAGES = [
@@ -10,18 +10,37 @@ const PREVIEW_IMAGES = [
   { src: "/images/collection/low-table-01.jpg", alt: "Low Table 01" },
 ] as const;
 
+const HERO_ALT =
+  "Sculptural boucle lounge chair and pouf beside a travertine coffee table in a sunlit minimal interior";
+
 export default function Hero() {
+  const {
+    props: { srcSet: heroMobile },
+  } = getImageProps({
+    src: "/images/hero-forme-interior-mobile.png",
+    alt: HERO_ALT,
+    width: 852,
+    height: 1638,
+    sizes: "100vw",
+  });
+  const { props: heroDesktop } = getImageProps({
+    src: "/images/hero-forme-interior.png",
+    alt: HERO_ALT,
+    fill: true,
+    sizes: "100vw",
+    loading: "eager",
+    fetchPriority: "high",
+  });
+
   return (
     <section className={styles.hero}>
       <div className={styles.imageWrap}>
-        <Image
-          src="/images/hero-forme-interior.png"
-          alt="Sculptural boucle lounge chair and pouf beside a travertine coffee table in a sunlit minimal interior"
-          fill
-          priority
-          sizes="100vw"
-          className={styles.image}
-        />
+        {/* Art direction: phones get the portrait photo, everything wider
+            keeps the desktop one — only the matching file is downloaded */}
+        <picture>
+          <source media="(max-width: 640px)" srcSet={heroMobile} sizes="100vw" />
+          <img {...heroDesktop} alt={HERO_ALT} className={styles.image} />
+        </picture>
         <div className={styles.scrim} />
       </div>
 

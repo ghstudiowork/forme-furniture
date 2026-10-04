@@ -136,8 +136,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
-    padding: 32px 16px 80px;
+    gap: 14px;
+    padding: 28px 20px 56px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
   }
 
   .statement {
@@ -145,7 +149,7 @@
   }
 
   .link {
-    margin-top: 8px;
+    margin-top: 4px;
     min-height: 44px;
     align-items: flex-end;
     padding-bottom: 6px;

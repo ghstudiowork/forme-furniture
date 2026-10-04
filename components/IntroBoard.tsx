@@ -133,10 +133,10 @@ export default function IntroBoard() {
       </div>
 
       {/* Centre, top */}
-      <PrincipleCell principle={PRINCIPLES.form} />
+      <PrincipleCell principle={PRINCIPLES.form} className={styles.form} />
 
       {/* Right, top */}
-      <PrincipleCell principle={PRINCIPLES.function} />
+      <PrincipleCell principle={PRINCIPLES.function} className={styles.function} />
 
       {/* Left, bottom — featured object */}
       <div className={`${styles.cell} ${styles.featureCell}`}>
@@ -160,7 +160,7 @@ export default function IntroBoard() {
       </div>
 
       {/* Centre, bottom */}
-      <PrincipleCell principle={PRINCIPLES.material} />
+      <PrincipleCell principle={PRINCIPLES.material} className={styles.material} />
 
       {/* Right, bottom — closing brand statement */}
       <div className={`${styles.cell} ${styles.statement}`}>
@@ -180,9 +180,15 @@ export default function IntroBoard() {
   );
 }
 
-function PrincipleCell({ principle }: { principle: Principle }) {
+function PrincipleCell({
+  principle,
+  className,
+}: {
+  principle: Principle;
+  className: string;
+}) {
   return (
-    <div className={`${styles.cell} ${styles.principleCell}`}>
+    <div className={`${styles.cell} ${styles.principleCell} ${className}`}>
       <span className={styles.label} data-reveal="label">
         {principle.label}
       </span>

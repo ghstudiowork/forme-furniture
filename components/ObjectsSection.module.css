@@ -468,23 +468,29 @@
   }
 }
 
-/* Mobile — single column, both actions always visible */
+/* Mobile — single column, both actions always visible. One 16px rhythm
+   from plate to caption to actions; frames use the full content width. */
 @media (max-width: 640px) {
   .section {
-    padding: 80px 16px 64px;
+    padding: 56px 20px 64px;
   }
 
   .head {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 18px;
-    padding-bottom: 28px;
+    gap: 16px;
+    padding-bottom: 24px;
   }
 
   .heading {
-    font-size: clamp(2.5rem, 12vw, 3.5rem);
+    font-size: min(12.8vw, 3.5rem);
     white-space: normal;
+  }
+
+  .lede {
+    font-size: 14px;
+    line-height: 1.7;
   }
 
   .filterList {
@@ -494,7 +500,7 @@
 
   .grid {
     grid-template-columns: minmax(0, 1fr);
-    row-gap: 48px;
+    row-gap: 36px;
   }
 
   .item:nth-child(even)::before {
@@ -502,10 +508,32 @@
   }
 
   .item {
-    padding-top: 24px;
+    padding-top: 20px;
   }
 
   .item + .item {
     border-top: 1px solid var(--rule);
+  }
+
+  .index {
+    margin-bottom: 12px;
+  }
+
+  .caption {
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .actions {
+    margin-top: 16px;
+  }
+
+  .action {
+    min-height: 48px;
+    padding: 0;
+  }
+
+  .more {
+    margin-top: 40px;
   }
 }

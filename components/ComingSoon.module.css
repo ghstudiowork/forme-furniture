@@ -1,4 +1,4 @@
-/* Coming soon — the header is absolute (72px; 64px tablet, 96px mobile), so
+/* Coming soon — the header is absolute (72px; 64px tablet, 60px mobile), so
    the cream ground starts at the top like every other page and the padding
    clears the bar. The stage is exactly the viewport below the header, and
    the message is centred in it on both axes. */
@@ -55,7 +55,7 @@
 
 @media (max-width: 640px) {
   .page {
-    --nav-h: 96px;
+    --nav-h: 60px;
   }
 
   .title {

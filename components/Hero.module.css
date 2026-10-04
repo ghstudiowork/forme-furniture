@@ -295,3 +295,176 @@
     animation: none;
   }
 }
+
+/* Mobile — one self-contained hero that reads top to bottom: the
+   portrait mobile photo as a full-width frame under the header carrying
+   the headline at the top and the information row (description + CTA |
+   01–03 list) on the floor at the bottom; then the Selected Objects as a
+   swipeable strip on the hero's dark ground. The section ends when its
+   content does. */
+@media (max-width: 640px) {
+  .hero {
+    --nav: 60px;
+    --h: min(11.4vw, 52px);
+    /* photo height at full width, and the information row (106px tall)
+       sitting 28px above the photo's bottom edge */
+    --img-h: calc(100vw * 1638 / 852);
+    --info-top: calc(var(--nav) + var(--img-h) - 134px);
+
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    padding-top: var(--nav);
+  }
+
+  /* Main visual — a real block in the flow, not a backdrop. The portrait
+     mobile photo is shown whole: the frame takes the photo's own ratio, so
+     nothing is cropped or stretched */
+  .imageWrap {
+    position: relative;
+    inset: auto;
+    flex: 0 0 auto;
+    aspect-ratio: 852 / 1638;
+  }
+
+  .image {
+    object-position: 50% 50%;
+  }
+
+  /* Headline on the wall at the top, information on the floor at the
+     bottom: darken both bands and leave the plant, chair and table clean */
+  .scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(28, 25, 22, 0.55) 0%,
+      rgba(28, 25, 22, 0.2) 18%,
+      rgba(28, 25, 22, 0) 32%,
+      rgba(28, 25, 22, 0) 58%,
+      rgba(28, 25, 22, 0.32) 72%,
+      rgba(28, 25, 22, 0.66) 100%
+    );
+  }
+
+  /* Only Selected Objects flows below the photo; headline and information
+     are placed against the hero (static parent) so they sit on the image */
+  .content {
+    position: static;
+    height: auto;
+  }
+
+  .headline {
+    top: calc(var(--nav) + 26px);
+    left: 20px;
+    z-index: 2;
+    font-size: var(--h);
+    line-height: 0.96;
+  }
+
+  .decoRule::before,
+  .decoRule::after,
+  .leftRule::before,
+  .leftRule::after {
+    width: 7px;
+    height: 7px;
+  }
+
+  /* Hero information on the photo — left: description + CTA */
+  .bottomLeft {
+    top: var(--info-top);
+    bottom: auto;
+    left: 20px;
+    z-index: 2;
+    width: auto;
+    height: auto;
+    padding: 2px 0 2px 14px;
+  }
+
+  .description {
+    position: static;
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: normal;
+    word-break: keep-all;
+  }
+
+  .cta {
+    position: static;
+    margin-top: 14px;
+    width: 120px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  /* Hero information on the photo — right: 01 / 02 / 03 */
+  .deco {
+    top: var(--info-top);
+    left: auto;
+    right: 20px;
+    z-index: 2;
+    width: auto;
+    height: auto;
+    padding: 2px 0 2px 12px;
+  }
+
+  .decoRule {
+    opacity: 0.4;
+  }
+
+  .decoMark {
+    display: none;
+  }
+
+  .decoList {
+    position: static;
+    font-size: 13px;
+    line-height: 26px;
+    opacity: 0.82;
+  }
+
+  .decoList span {
+    width: 26px;
+  }
+
+  /* Selected Objects — a full-width row under the photo. The desktop
+     marquee keeps running here: same track (list twice), same keyframes
+     and timing; only the item size changes */
+  .previewGroup {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: auto;
+    height: auto;
+    padding: 20px 0 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    background: none;
+  }
+
+  .previewLabel {
+    position: static;
+    margin: 0 20px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .previewViewport {
+    flex: 0 0 auto;
+    height: auto;
+  }
+
+  .previewTrack {
+    height: auto;
+  }
+
+  /* Trailing margin (not a flex gap) keeps both copies of the list the
+     same width, so the -50% → 0 loop has no seam */
+  .previewItem {
+    width: 140px;
+    height: 176px;
+    margin-right: 4px;
+  }
+}

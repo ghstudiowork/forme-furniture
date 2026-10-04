@@ -354,18 +354,22 @@
 /* Mobile — one column: brand, contact, message + Instagram, panel */
 @media (max-width: 640px) {
   .footer {
-    padding: 56px 16px 0;
+    padding: 48px 20px 0;
   }
 
   .main {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    padding-bottom: 40px;
+    gap: 36px;
+    padding-bottom: 36px;
   }
 
   .left {
-    gap: 40px;
+    gap: 32px;
+  }
+
+  .message {
+    font-size: 14px;
   }
 
   .email {
